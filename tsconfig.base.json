@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@mftl/common-enums": ["libs/enums/src/index.ts"],
       "@mftl\\common-classes": ["libs/classes/src/index.ts"]
     }
   },
