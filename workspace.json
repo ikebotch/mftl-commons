@@ -7,12 +7,13 @@
       "projectType": "library",
       "targets": {
         "build": {
-          "executor": "@nrwl/workspace:tsc",
+          "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/classes",
-            "main": "libs/classes/src/index.ts",
             "tsConfig": "libs/classes/tsconfig.lib.json",
+            "packageJson": "libs/classes/package.json",
+            "main": "libs/classes/src/index.ts",
             "assets": ["libs/classes/*.md"]
           }
         },
@@ -90,12 +91,13 @@
       "projectType": "library",
       "targets": {
         "build": {
-          "executor": "@nrwl/workspace:tsc",
+          "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/enums",
-            "main": "libs/enums/src/index.ts",
             "tsConfig": "libs/enums/tsconfig.lib.json",
+            "packageJson": "libs/enums/package.json",
+            "main": "libs/enums/src/index.ts",
             "assets": ["libs/enums/*.md"]
           }
         },
@@ -122,12 +124,13 @@
       "projectType": "library",
       "targets": {
         "build": {
-          "executor": "@nrwl/workspace:tsc",
+          "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/exceptions",
-            "main": "libs/exceptions/src/index.ts",
             "tsConfig": "libs/exceptions/tsconfig.lib.json",
+            "packageJson": "libs/exceptions/package.json",
+            "main": "libs/exceptions/src/index.ts",
             "assets": ["libs/exceptions/*.md"]
           }
         },
@@ -154,12 +157,13 @@
       "projectType": "library",
       "targets": {
         "build": {
-          "executor": "@nrwl/workspace:tsc",
+          "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/interceptors",
-            "main": "libs/interceptors/src/index.ts",
             "tsConfig": "libs/interceptors/tsconfig.lib.json",
+            "packageJson": "libs/interceptors/package.json",
+            "main": "libs/interceptors/src/index.ts",
             "assets": ["libs/interceptors/*.md"]
           }
         },
@@ -186,12 +190,13 @@
       "projectType": "library",
       "targets": {
         "build": {
-          "executor": "@nrwl/workspace:tsc",
+          "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/strategies",
-            "main": "libs/strategies/src/index.ts",
             "tsConfig": "libs/strategies/tsconfig.lib.json",
+            "packageJson": "libs/strategies/package.json",
+            "main": "libs/strategies/src/index.ts",
             "assets": ["libs/strategies/*.md"]
           }
         },

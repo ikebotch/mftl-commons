@@ -1,9 +1,6 @@
 {
-  "name": "@mftl/common-strategies",
+  "name": "mftl-common-strategies",
   "version": "0.0.1",
-  "dependencies": {
-    "@mftl/common-enums": "0.0.1"
-  },
   "devDependencies": {
     "@types/passport-http": "^0.3.9",
     "@types/passport-jwt": "^3.0.6"
