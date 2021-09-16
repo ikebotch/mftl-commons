@@ -1,1 +1,1 @@
-export * from './lib/enums';
+export * from './lib/iam.enums';
