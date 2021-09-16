@@ -1,6 +1,38 @@
 {
   "version": 2,
   "projects": {
+    "classes": {
+      "root": "libs/classes",
+      "sourceRoot": "libs/classes/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/workspace:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/classes",
+            "main": "libs/classes/src/index.ts",
+            "tsConfig": "libs/classes/tsconfig.lib.json",
+            "assets": ["libs/classes/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/classes/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/classes"],
+          "options": {
+            "jestConfig": "libs/classes/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "common-test": {
       "root": "apps/common-test",
       "sourceRoot": "apps/common-test/src",
