@@ -38,6 +38,9 @@
     },
     "exceptions": {
       "tags": []
+    },
+    "interceptors": {
+      "tags": []
     }
   }
 }

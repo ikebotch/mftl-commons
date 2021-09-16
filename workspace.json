@@ -147,6 +147,38 @@
           }
         }
       }
+    },
+    "interceptors": {
+      "root": "libs/interceptors",
+      "sourceRoot": "libs/interceptors/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/workspace:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/interceptors",
+            "main": "libs/interceptors/src/index.ts",
+            "tsConfig": "libs/interceptors/tsconfig.lib.json",
+            "assets": ["libs/interceptors/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/interceptors/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/interceptors"],
+          "options": {
+            "jestConfig": "libs/interceptors/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
