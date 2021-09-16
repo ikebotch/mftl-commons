@@ -41,6 +41,9 @@
     },
     "interceptors": {
       "tags": []
+    },
+    "strategies": {
+      "tags": []
     }
   }
 }

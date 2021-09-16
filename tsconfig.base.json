@@ -18,6 +18,7 @@
       "@mftl/common-enums": ["libs/enums/src/index.ts"],
       "@mftl/common-exceptions": ["libs/exceptions/src/index.ts"],
       "@mftl/common-interceptors": ["libs/interceptors/src/index.ts"],
+      "@mftl/common-strategies": ["libs/strategies/src/index.ts"],
       "@mftl\\common-classes": ["libs/classes/src/index.ts"]
     }
   },
