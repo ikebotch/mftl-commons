@@ -3,7 +3,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BasicStrategy as Strategy } from 'passport-http';
 import { Repository } from 'typeorm';
-import { IamEntities } from './../entities/iam.entities';
+import { IamEntities } from '@mftl/common-enums'
+
 
 @Injectable()
 export class BasicStrategy extends PassportStrategy(Strategy) {
