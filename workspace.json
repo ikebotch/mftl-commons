@@ -1,0 +1,60 @@
+{
+  "version": 2,
+  "projects": {
+    "common-test": {
+      "root": "apps/common-test",
+      "sourceRoot": "apps/common-test/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/common-test",
+            "main": "apps/common-test/src/main.ts",
+            "tsConfig": "apps/common-test/tsconfig.app.json",
+            "assets": ["apps/common-test/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/common-test/src/environments/environment.ts",
+                  "with": "apps/common-test/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "common-test:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/common-test/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/common-test"],
+          "options": {
+            "jestConfig": "apps/common-test/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/nest"
+  },
+  "defaultProject": "common-test"
+}
