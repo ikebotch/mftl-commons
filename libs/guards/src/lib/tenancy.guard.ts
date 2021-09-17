@@ -1,11 +1,9 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { Reflector } from '@nestjs/core';
 import { Request, Response } from 'express';
 
 @Injectable()
 export class TenancyGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
 
   canActivate(
     context: ExecutionContext

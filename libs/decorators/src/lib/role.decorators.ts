@@ -1,5 +1,3 @@
-import { applyDecorators, SetMetadata, UseGuards } from '@nestjs/common';
-import { RoleGuard } from 'mftl-common-guards';
+import { SetMetadata } from '@nestjs/common';
 
-export const Roles = (...roles: string[]) =>
-  applyDecorators(SetMetadata('roles', roles), UseGuards(RoleGuard));
+export const Roles = (...roles: string[]) => SetMetadata('roles', roles);
