@@ -42,6 +42,9 @@
     "interceptors": {
       "tags": []
     },
+    "nest-common": {
+      "tags": []
+    },
     "strategies": {
       "tags": []
     }

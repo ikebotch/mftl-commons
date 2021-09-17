@@ -184,6 +184,39 @@
         }
       }
     },
+    "nest-common": {
+      "root": "libs/nest-common",
+      "sourceRoot": "libs/nest-common/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/nest-common",
+            "tsConfig": "libs/nest-common/tsconfig.lib.json",
+            "packageJson": "libs/nest-common/package.json",
+            "main": "libs/nest-common/src/index.ts",
+            "assets": ["libs/nest-common/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/nest-common/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/nest-common"],
+          "options": {
+            "jestConfig": "libs/nest-common/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "strategies": {
       "root": "libs/strategies",
       "sourceRoot": "libs/strategies/src",
