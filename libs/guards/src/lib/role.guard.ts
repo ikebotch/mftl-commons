@@ -1,18 +1,11 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Request } from 'express';
-import { Repository } from 'typeorm';
-import { IamEntities } from 'mftl-common-entities';
-import { IamInterfaces } from 'mftl-common-interfaces';
+
 
 @Injectable()
 export class RoleGuard implements CanActivate {
-  constructor(
-    private readonly reflector: Reflector,
-    @InjectRepository(IamEntities.ContextEntity)
-    private contextRepository: Repository<IamEntities.ContextEntity>
-  ) {}
+  constructor(private readonly reflector: Reflector) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     // get request
