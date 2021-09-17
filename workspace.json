@@ -85,6 +85,72 @@
         }
       }
     },
+    "decorators": {
+      "root": "libs/decorators",
+      "sourceRoot": "libs/decorators/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/decorators",
+            "tsConfig": "libs/decorators/tsconfig.lib.json",
+            "packageJson": "libs/decorators/package.json",
+            "main": "libs/decorators/src/index.ts",
+            "assets": ["libs/decorators/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/decorators/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/decorators"],
+          "options": {
+            "jestConfig": "libs/decorators/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "entities": {
+      "root": "libs/entities",
+      "sourceRoot": "libs/entities/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/entities",
+            "tsConfig": "libs/entities/tsconfig.lib.json",
+            "packageJson": "libs/entities/package.json",
+            "main": "libs/entities/src/index.ts",
+            "assets": ["libs/entities/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/entities/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/entities"],
+          "options": {
+            "jestConfig": "libs/entities/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "enums": {
       "root": "libs/enums",
       "sourceRoot": "libs/enums/src",
@@ -151,6 +217,39 @@
         }
       }
     },
+    "guards": {
+      "root": "libs/guards",
+      "sourceRoot": "libs/guards/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/guards",
+            "tsConfig": "libs/guards/tsconfig.lib.json",
+            "packageJson": "libs/guards/package.json",
+            "main": "libs/guards/src/index.ts",
+            "assets": ["libs/guards/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/guards/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/guards"],
+          "options": {
+            "jestConfig": "libs/guards/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "interceptors": {
       "root": "libs/interceptors",
       "sourceRoot": "libs/interceptors/src",
@@ -184,6 +283,39 @@
         }
       }
     },
+    "interfaces": {
+      "root": "libs/interfaces",
+      "sourceRoot": "libs/interfaces/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/interfaces",
+            "tsConfig": "libs/interfaces/tsconfig.lib.json",
+            "packageJson": "libs/interfaces/package.json",
+            "main": "libs/interfaces/src/index.ts",
+            "assets": ["libs/interfaces/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/interfaces/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/interfaces"],
+          "options": {
+            "jestConfig": "libs/interfaces/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "nest-common": {
       "root": "libs/nest-common",
       "sourceRoot": "libs/nest-common/src",
@@ -212,6 +344,39 @@
           "outputs": ["coverage/libs/nest-common"],
           "options": {
             "jestConfig": "libs/nest-common/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "pipes": {
+      "root": "libs/pipes",
+      "sourceRoot": "libs/pipes/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/pipes",
+            "tsConfig": "libs/pipes/tsconfig.lib.json",
+            "packageJson": "libs/pipes/package.json",
+            "main": "libs/pipes/src/index.ts",
+            "assets": ["libs/pipes/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/pipes/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/pipes"],
+          "options": {
+            "jestConfig": "libs/pipes/jest.config.js",
             "passWithNoTests": true
           }
         }

@@ -1,0 +1,8 @@
+{
+  "name": "mftl-common-entities",
+  "version": "0.0.1",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/uniqid": "^5.3.1"
+  }
+}

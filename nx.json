@@ -33,16 +33,31 @@
     "common-test": {
       "tags": []
     },
+    "decorators": {
+      "tags": []
+    },
+    "entities": {
+      "tags": []
+    },
     "enums": {
       "tags": []
     },
     "exceptions": {
       "tags": []
     },
+    "guards": {
+      "tags": []
+    },
     "interceptors": {
       "tags": []
     },
+    "interfaces": {
+      "tags": []
+    },
     "nest-common": {
+      "tags": []
+    },
+    "pipes": {
       "tags": []
     },
     "strategies": {

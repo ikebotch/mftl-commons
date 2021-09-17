@@ -23,9 +23,14 @@
       "@mftl/nest-common": ["libs/nest-common/src/index.ts"],
       "@mftl/nest-common/*": ["libs/nest-common/*"],
       "mftl-common-classes": ["libs/classes/src/index.ts"],
+      "mftl-common-decorators": ["libs/decorators/src/index.ts"],
+      "mftl-common-entities": ["libs/entities/src/index.ts"],
       "mftl-common-enums": ["libs/enums/src/index.ts"],
       "mftl-common-exceptions": ["libs/exceptions/src/index.ts"],
+      "mftl-common-guards": ["libs/guards/src/index.ts"],
       "mftl-common-interceptors": ["libs/interceptors/src/index.ts"],
+      "mftl-common-interfaces": ["libs/interfaces/src/index.ts"],
+      "mftl-common-pipes": ["libs/pipes/src/index.ts"],
       "mftl-common-strategies": ["libs/strategies/src/index.ts"]
     }
   },
