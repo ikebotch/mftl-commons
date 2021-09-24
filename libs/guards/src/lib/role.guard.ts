@@ -12,11 +12,11 @@ export class RoleGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<Request>();
 
     // get context from token
-    const ctx = (request as any).user.ctx;
+    const ctx = (request as any)?.user?.ctx;
 
     // get roles passed to decorator
     const roles = this.reflector.get<string[]>('roles', context.getHandler());
 
-    return roles.every((role: string) => ctx.includes(role));
+    return roles.every((role: string) => ctx?.includes(role));
   }
 }
