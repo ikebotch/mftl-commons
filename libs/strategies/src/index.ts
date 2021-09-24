@@ -1,1 +1,1 @@
-export * from './lib/jwt.strategy';
+export * from './lib/strategies.module';

@@ -1,6 +1,6 @@
 {
   "name": "mftl-common-strategies",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "devDependencies": {
     "@types/passport-jwt": "^3.0.6"
   }
