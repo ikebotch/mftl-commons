@@ -414,6 +414,39 @@
           }
         }
       }
+    },
+    "webhook": {
+      "root": "libs/webhook",
+      "sourceRoot": "libs/webhook/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/webhook",
+            "tsConfig": "libs/webhook/tsconfig.lib.json",
+            "packageJson": "libs/webhook/package.json",
+            "main": "libs/webhook/src/index.ts",
+            "assets": ["libs/webhook/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/webhook/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/webhook"],
+          "options": {
+            "jestConfig": "libs/webhook/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

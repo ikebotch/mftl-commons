@@ -57,6 +57,21 @@ export class CrudHelper {
     return await this.repository.save(newEntityToBeinserted);
   }
 
+  public async getCreateEntityData(dto: any) {
+    // create new entity object
+    const newEntityToBeinserted = this.repository.create();
+
+    // assign dto values to model
+    for (const key of Object.keys(dto)) {
+      newEntityToBeinserted[key] = dto[key];
+    }
+
+
+    // save entity in database
+    return newEntityToBeinserted;
+  }
+
+
   public async update(id: string, body: any) {
     // get entity by id
     const entity = await this.repository.findOne(id);
@@ -75,6 +90,24 @@ export class CrudHelper {
     return await this.repository.save(entity);
   }
 
+  public async getUpdateEntityData(id: string, body: any) {
+    // get entity by id
+    const entity = await this.repository.findOne(id);
+
+    if (!entity) {
+      // throw an error if entity was not found
+      throw new this.DoesNotExistException();
+    }
+
+    // assign dto values to model
+    for (const key of Object.keys(body)) {
+      entity[key] = body[key];
+    }
+
+    // update model
+    return entity;
+  }
+
   public async delete(id: string) {
     // check if entity exists
     const entity = await this.findOne(id);
@@ -87,5 +120,17 @@ export class CrudHelper {
     await this.repository.softDelete(id);
 
     return `${this.name} with id ${id} has been deleted`;
+  }
+
+  public async getDeleteEntityData(id: string) {
+    // check if entity exists
+    const entity = await this.findOne(id);
+
+    if (!entity) {
+      throw new this.DoesNotExistException();
+    }
+
+    // delete entity
+    return entity;
   }
 }

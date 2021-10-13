@@ -31,7 +31,8 @@
       "mftl-common-interceptors": ["libs/interceptors/src/index.ts"],
       "mftl-common-interfaces": ["libs/interfaces/src/index.ts"],
       "mftl-common-pipes": ["libs/pipes/src/index.ts"],
-      "mftl-common-strategies": ["libs/strategies/src/index.ts"]
+      "mftl-common-strategies": ["libs/strategies/src/index.ts"],
+      "mftl-webhook": ["libs/webhook/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

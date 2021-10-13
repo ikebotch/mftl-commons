@@ -1,0 +1,1 @@
+export const WEBHOOK_EVENTS = 'WEBHOOK_EVENTS'
