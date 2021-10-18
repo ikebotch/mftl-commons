@@ -1,18 +1,18 @@
-import { Logger } from '@nestjs/common';
+import { Logger, NotFoundException } from '@nestjs/common';
 import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
 import { Repository } from 'typeorm';
 
 export class CrudHelper {
-  protected DoesNotExistException: any;
-  protected name: string;
+  // protected DoesNotExistException: any;
+  // protected name: string;
 
   constructor(
-    name: string,
-    doesNotExistException: any,
+    protected name: string,
+    protected DoesNotExistException: any,
     public repository: Repository<any>
   ) {
-    this.name = name;
-    this.DoesNotExistException = doesNotExistException;
+    // this.name = name;
+    // this.DoesNotExistException = doesNotExistException;
   }
 
   public async findOne(id: string) {
@@ -21,7 +21,7 @@ export class CrudHelper {
 
     if (!entity) {
       // throw an error if entity was not found
-      throw new this.DoesNotExistException();
+      throw new NotFoundException(`${this.name} does not exist`);
     }
 
     // return found entity
@@ -66,11 +66,9 @@ export class CrudHelper {
       newEntityToBeinserted[key] = dto[key];
     }
 
-
     // save entity in database
     return newEntityToBeinserted;
   }
-
 
   public async update(id: string, body: any) {
     // get entity by id
@@ -78,12 +76,16 @@ export class CrudHelper {
 
     if (!entity) {
       // throw an error if entity was not found
-      throw new this.DoesNotExistException();
+      throw new NotFoundException(`${this.name} does not exist`);
     }
 
     // assign dto values to model
     for (const key of Object.keys(body)) {
-      entity[key] = body[key];
+      if (typeof body[key] === 'boolean' || typeof body[key] === 'number') {
+        entity[key] = body[key] ?? entity[key];
+      } else {
+        entity[key] = body[key] || entity[key];
+      }
     }
 
     // update model
@@ -96,7 +98,7 @@ export class CrudHelper {
 
     if (!entity) {
       // throw an error if entity was not found
-      throw new this.DoesNotExistException();
+      throw new NotFoundException(`${this.name} does not exist`);
     }
 
     // assign dto values to model
@@ -113,7 +115,7 @@ export class CrudHelper {
     const entity = await this.findOne(id);
 
     if (!entity) {
-      throw new this.DoesNotExistException();
+      throw new NotFoundException(`${this.name} does not exist`);
     }
 
     // delete entity
@@ -127,7 +129,7 @@ export class CrudHelper {
     const entity = await this.findOne(id);
 
     if (!entity) {
-      throw new this.DoesNotExistException();
+      throw new NotFoundException(`${this.name} does not exist`);
     }
 
     // delete entity
