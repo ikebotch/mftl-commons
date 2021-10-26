@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
 import { lastValueFrom, map } from 'rxjs';
@@ -12,6 +12,7 @@ import { WebhookEventModel } from './webhook.interface';
 
 @Injectable()
 export class WebhookService {
+  private readonly logger = new Logger('MFTL Webhook');
   constructor(
     @InjectRepository(WebhookEntity)
     private webhookRepository: Repository<WebhookEntity>,
@@ -69,6 +70,7 @@ export class WebhookService {
 
   async dispatch(event: string, data: any) {
     // get all subscriptions to this event
+    this.logger.log(JSON.stringify(data), event);
     const subscriptions = await this.webhookRepository.find({
       where: { event: event },
     });
@@ -87,7 +89,8 @@ export class WebhookService {
           body: res,
           event: event,
         });
-      } catch (error) {
+      } catch (error: any) {
+        this.logger.error(error?.message, undefined, event );
         Object.assign(webhookReq, {
           registeredUrl: subscription.registeredUrl,
           body: error,
