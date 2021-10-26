@@ -103,11 +103,39 @@ export class CrudHelper {
 
     // assign dto values to model
     for (const key of Object.keys(body)) {
-      entity[key] = body[key];
+      if (typeof body[key] === 'boolean' || typeof body[key] === 'number') {
+        entity[key] = body[key] ?? entity[key];
+      } else {
+        entity[key] = body[key] || entity[key];
+      }
     }
 
     // update model
     return entity;
+  }
+
+  public async getUpdateEntityWithInitialData(id: string, body: any) {
+    // get entity by id
+    // const originalData = {...body}
+    const entity = await this.repository.findOne(id);
+    const initialEntity = {...entity}
+
+    if (!entity) {
+      // throw an error if entity was not found
+      throw new NotFoundException(`${this.name} does not exist`);
+    }
+
+    // assign dto values to model
+    for (const key of Object.keys(body)) {
+      if (typeof body[key] === 'boolean' || typeof body[key] === 'number') {
+        entity[key] = body[key] ?? entity[key];
+      } else {
+        entity[key] = body[key] || entity[key];
+      }
+    }
+
+    // update model
+    return {updatedEntity: entity, initialEntity};
   }
 
   public async delete(id: string) {
@@ -135,4 +163,6 @@ export class CrudHelper {
     // delete entity
     return entity;
   }
+
+
 }
