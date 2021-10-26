@@ -68,11 +68,11 @@ export class WebhookService {
     });
   }
 
-  async dispatch(event: string, data: any) {
+  async dispatch(event: string, data: any, config?: any) {
     // get all subscriptions to this event
     this.logger.log(JSON.stringify(data), event);
     const subscriptions = await this.webhookRepository.find({
-      where: { event: event },
+      where: { event },
     });
 
     for await (const subscription of subscriptions) {
@@ -80,7 +80,7 @@ export class WebhookService {
       try {
         const res = await lastValueFrom(
           this.httpService
-            .post(subscription.registeredUrl, data)
+            .post(subscription.registeredUrl, data, config)
             .pipe(map((x) => x.data))
         );
 
@@ -90,7 +90,7 @@ export class WebhookService {
           event: event,
         });
       } catch (error: any) {
-        this.logger.error(error?.message, undefined, event );
+        this.logger.error(error?.message, undefined, event);
         Object.assign(webhookReq, {
           registeredUrl: subscription.registeredUrl,
           body: error,
