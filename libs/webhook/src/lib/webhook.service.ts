@@ -1,4 +1,5 @@
 import { HttpService } from '@nestjs/axios';
+import { AxiosRequestConfig } from '@nestjs/axios/node_modules/axios';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
@@ -68,7 +69,13 @@ export class WebhookService {
     });
   }
 
-  async dispatch(event: string, data: any, config?: any) {
+  async dispatch(
+    event: string,
+    data: any,
+    methodName: 'post' | 'put' = 'post',
+    id?: string,
+    config?: AxiosRequestConfig
+  ) {
     // get all subscriptions to this event
     this.logger.log(JSON.stringify(data), event);
     const subscriptions = await this.webhookRepository.find({
@@ -79,9 +86,11 @@ export class WebhookService {
       const webhookReq = this.webhookRequestRepository.create();
       try {
         const res = await lastValueFrom(
-          this.httpService
-            .post(subscription.registeredUrl, data, config)
-            .pipe(map((x) => x.data))
+          this.httpService[methodName](
+            `${subscription.registeredUrl}/${id?.trim() ? id : ''}`,
+            data,
+            config
+          ).pipe(map((x) => x.data))
         );
 
         Object.assign(webhookReq, {
