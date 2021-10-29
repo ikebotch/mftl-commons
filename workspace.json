@@ -382,6 +382,39 @@
         }
       }
     },
+    "rpc": {
+      "root": "libs/rpc",
+      "sourceRoot": "libs/rpc/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/rpc",
+            "tsConfig": "libs/rpc/tsconfig.lib.json",
+            "packageJson": "libs/rpc/package.json",
+            "main": "libs/rpc/src/index.ts",
+            "assets": ["libs/rpc/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/rpc/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/rpc"],
+          "options": {
+            "jestConfig": "libs/rpc/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "strategies": {
       "root": "libs/strategies",
       "sourceRoot": "libs/strategies/src",

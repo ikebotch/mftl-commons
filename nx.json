@@ -60,6 +60,9 @@
     "pipes": {
       "tags": []
     },
+    "rpc": {
+      "tags": []
+    },
     "strategies": {
       "tags": []
     },
