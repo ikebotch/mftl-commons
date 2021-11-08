@@ -25,7 +25,9 @@ export class RequestLoggerInterceptor implements NestInterceptor {
         tap(() =>
           Logger.log(
             `${request.method} ${request.url} ${
-              request.body && request.method !== 'GET'
+              request.body &&
+              request.method !== 'GET' &&
+              !request.url.includes('stripe/webhook')
                 ? '::: ' + JSON.stringify(request.body)
                 : ''
             }`,

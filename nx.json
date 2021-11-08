@@ -66,6 +66,9 @@
     "strategies": {
       "tags": []
     },
+    "util": {
+      "tags": []
+    },
     "webhook": {
       "tags": []
     }

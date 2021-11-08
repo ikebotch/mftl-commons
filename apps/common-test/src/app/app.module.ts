@@ -2,17 +2,16 @@ import { Module } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { RpcConfigModel, RpcModule } from 'mftl-rpc';
+import { RpcModule } from 'mftl-rpc';
+import { ConfigModule } from '@nestjs/config';
+import { serviceConfig } from './app.constants';
 
-export const serviceConfig: { [id: string]: RpcConfigModel } = {
-  FETCH_CUSTOMER: {
-    name: 'FETCH_CUSTOMER',
-    url: 'https://reqres.in/api/users',
-    method: 'get',
-  },
-};
+
 @Module({
-  imports: [RpcModule.register(serviceConfig)],
+  imports: [
+    ConfigModule.forRoot(),
+    RpcModule.register(serviceConfig)
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

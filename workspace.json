@@ -448,6 +448,38 @@
         }
       }
     },
+    "util": {
+      "root": "libs/util",
+      "sourceRoot": "libs/util/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/workspace:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/util",
+            "main": "libs/util/src/index.ts",
+            "tsConfig": "libs/util/tsconfig.lib.json",
+            "assets": ["libs/util/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/util/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/util"],
+          "options": {
+            "jestConfig": "libs/util/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "webhook": {
       "root": "libs/webhook",
       "sourceRoot": "libs/webhook/src",

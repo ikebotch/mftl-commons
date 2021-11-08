@@ -20,8 +20,8 @@ export class HttpResponseTransformInterceptor implements NestInterceptor {
     // transform response to standard structure
     return next.handle().pipe(
       map((data: any) => ({
-        statusCode: response.statusCode,
-        message: process.env.FC_CONSTANT_HTTP_STATUS_SUCCESS,
+        statusCode: response?.statusCode,
+        message: process.env.CONSTANT_HTTP_STATUS_SUCCESS,
         data,
       }))
     );

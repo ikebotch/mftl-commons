@@ -95,14 +95,14 @@ export class WebhookService {
 
         Object.assign(webhookReq, {
           registeredUrl: subscription.registeredUrl,
-          body: res,
+          body: JSON.stringify(res),
           event: event,
         });
       } catch (error: any) {
-        this.logger.error(error?.message, undefined, event);
+        this.logger.error(error, error?.stack || error?.message, event);
         Object.assign(webhookReq, {
           registeredUrl: subscription.registeredUrl,
-          body: error,
+          body: JSON.stringify(error),
           event,
         });
       } finally {

@@ -1,10 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { AxiosRequestConfig } from '@nestjs/axios/node_modules/axios';
-import {
-  Inject,
-  Injectable,
-  Logger,
-} from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { lastValueFrom, map } from 'rxjs';
 import { RPC_CONFIG } from './rpc.config';
 import { RpcConfigModel } from './rpc.models';
@@ -25,16 +21,23 @@ export class RpcService {
     );
   }
 
-  async rpcBuilder<T>(rpcName: string, httpConfig?: AxiosRequestConfig) {
+  async rpcBuilder<T>(
+    rpcName: string,
+    id?: string,
+    httpConfig?: AxiosRequestConfig
+  ) {
     try {
+      const idParam = id?.trim() ? '/' + id.trim() : '';
       const { method, url } = this.rpcConfig[rpcName];
-      this.logger.log(JSON.stringify(this.rpcConfig[rpcName]));
+      this.logger.log(JSON.stringify({...this.rpcConfig[rpcName]}));
       return await lastValueFrom(
-        this.httpService[method]<T>(url, httpConfig).pipe(map((x) => x.data))
+        this.httpService[method]<T>(`${url}${idParam}`, httpConfig).pipe(
+          map((x) => x.data)
+        )
       );
     } catch (error: any) {
       this.logger.error(error, error?.message);
-      throw new Error(error?.message);
+      throw new Error(error);
     }
   }
 }

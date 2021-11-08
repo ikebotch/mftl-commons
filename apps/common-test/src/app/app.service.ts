@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { RpcService } from 'mftl-rpc';
-import { serviceConfig } from './app.module';
+import { serviceConfig } from './app.constants';
 
 @Injectable()
 export class AppService {
