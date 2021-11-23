@@ -66,6 +66,9 @@
     "strategies": {
       "tags": []
     },
+    "tenancy": {
+      "tags": []
+    },
     "util": {
       "tags": []
     },

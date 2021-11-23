@@ -448,6 +448,39 @@
         }
       }
     },
+    "tenancy": {
+      "root": "libs/tenancy",
+      "sourceRoot": "libs/tenancy/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/tenancy",
+            "tsConfig": "libs/tenancy/tsconfig.lib.json",
+            "packageJson": "libs/tenancy/package.json",
+            "main": "libs/tenancy/src/index.ts",
+            "assets": ["libs/tenancy/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/tenancy/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tenancy"],
+          "options": {
+            "jestConfig": "libs/tenancy/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "util": {
       "root": "libs/util",
       "sourceRoot": "libs/util/src",
