@@ -7,15 +7,18 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
-import { TenancyService } from './tenancy.service';
+import { TenancyService } from 'mftl-tenancy';
 
 @Injectable()
 export class TenancyInterceptor implements NestInterceptor {
   constructor(private tenancyService: TenancyService) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    // get request
+    const request = context.switchToHttp().getRequest() as Request;
+
     // get tenacy header
-    const headers = (context.switchToHttp().getRequest() as Request).headers;
+    const headers = request.headers;
 
     // check for x-tennat header
     if (!headers['x-tenant']) {
