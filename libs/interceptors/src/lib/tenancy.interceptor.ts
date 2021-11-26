@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
-import { TenancyService } from 'mftl-tenancy';
+import { TenancyService } from './tenancy.service';
 
 @Injectable()
 export class TenancyInterceptor implements NestInterceptor {
