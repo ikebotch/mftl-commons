@@ -15,9 +15,11 @@ export class CrudHelper {
     // this.DoesNotExistException = doesNotExistException;
   }
 
-  public async findOne(id: string) {
+  public async findOne(id: string, partition?: any) {
     // attempt to locate entity by id
-    const entity = await this.repository.findOne(id);
+    const entity = await this.repository.findOne({
+      where: { id, ...partition },
+    });
 
     if (!entity) {
       // throw an error if entity was not found
@@ -32,17 +34,18 @@ export class CrudHelper {
   public async find(
     pagination: IPaginationOptions,
     query?: any,
-    reverseOrder?: boolean
+    reverseOrder?: boolean,
+    partition?: any
   ) {
     return await paginate<any>(this.repository, pagination, {
       order: { createdAt: reverseOrder ? 'ASC' : 'DESC' },
-      where: { ...query },
+      where: { ...query, ...partition },
     });
 
     // return await this.repository.find({ ...query });
   }
 
-  public async create(dto: any) {
+  public async create(dto: any, partition?: any) {
     // create new entity object
     const newEntityToBeinserted = this.repository.create();
 
@@ -54,7 +57,10 @@ export class CrudHelper {
     Logger.log(JSON.stringify(newEntityToBeinserted));
 
     // save entity in database
-    return await this.repository.save(newEntityToBeinserted);
+    return await this.repository.save({
+      ...newEntityToBeinserted,
+      ...partition,
+    });
   }
 
   public async getCreateEntityData(dto: any) {
@@ -118,7 +124,7 @@ export class CrudHelper {
     // get entity by id
     // const originalData = {...body}
     const entity = await this.repository.findOne(id);
-    const initialEntity = {...entity}
+    const initialEntity = { ...entity };
 
     if (!entity) {
       // throw an error if entity was not found
@@ -135,7 +141,7 @@ export class CrudHelper {
     }
 
     // update model
-    return {updatedEntity: entity, initialEntity};
+    return { updatedEntity: entity, initialEntity };
   }
 
   public async delete(id: string) {
@@ -163,6 +169,4 @@ export class CrudHelper {
     // delete entity
     return entity;
   }
-
-
 }
