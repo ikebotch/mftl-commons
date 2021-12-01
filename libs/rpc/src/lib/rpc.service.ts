@@ -29,12 +29,20 @@ export class RpcService {
     try {
       const idParam = id?.trim() ? '/' + id.trim() : '';
       const { method, url } = this.rpcConfig[rpcName];
-      this.logger.log(JSON.stringify({...this.rpcConfig[rpcName]}));
-      return await lastValueFrom(
-        this.httpService[method]<T>(`${url}${idParam}`, httpConfig).pipe(
-          map((x) => x.data)
-        )
-      );
+      this.logger.log(JSON.stringify({ ...this.rpcConfig[rpcName] }));
+      if (method === 'post') {
+        return await lastValueFrom(
+          this.httpService
+            .post<T>(`${url}${idParam}`, httpConfig?.data, httpConfig)
+            .pipe(map((x) => x.data))
+        );
+      } else {
+        return await lastValueFrom(
+          this.httpService[method]<T>(`${url}${idParam}`, httpConfig).pipe(
+            map((x) => x.data)
+          )
+        );
+      }
     } catch (error: any) {
       this.logger.error(error, error?.message);
       throw new Error(error);
