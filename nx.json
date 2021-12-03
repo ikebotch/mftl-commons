@@ -57,6 +57,12 @@
     "nest-common": {
       "tags": []
     },
+    "payment-processor": {
+      "tags": []
+    },
+    "paystack": {
+      "tags": []
+    },
     "pipes": {
       "tags": []
     },

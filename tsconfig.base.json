@@ -34,6 +34,8 @@
       "mftl-common-pipes": ["libs/pipes/src/index.ts"],
       "mftl-common-strategies": ["libs/strategies/src/index.ts"],
       "mftl-common-util": ["libs/util/src/index.ts"],
+      "mftl-payment-processor": ["libs/payment-processor/src/index.ts"],
+      "mftl-paystack": ["libs/paystack/src/index.ts"],
       "mftl-rpc": ["libs/rpc/src/index.ts"],
       "mftl-tenancy": ["libs/tenancy/src/index.ts"],
       "mftl-webhook": ["libs/webhook/src/index.ts"]
