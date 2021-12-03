@@ -382,6 +382,72 @@
         }
       }
     },
+    "payment-processor": {
+      "root": "libs/payment-processor",
+      "sourceRoot": "libs/payment-processor/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/payment-processor",
+            "tsConfig": "libs/payment-processor/tsconfig.lib.json",
+            "packageJson": "libs/payment-processor/package.json",
+            "main": "libs/payment-processor/src/index.ts",
+            "assets": ["libs/payment-processor/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/payment-processor/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/payment-processor"],
+          "options": {
+            "jestConfig": "libs/payment-processor/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "paystack": {
+      "root": "libs/paystack",
+      "sourceRoot": "libs/paystack/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/paystack",
+            "tsConfig": "libs/paystack/tsconfig.lib.json",
+            "packageJson": "libs/paystack/package.json",
+            "main": "libs/paystack/src/index.ts",
+            "assets": ["libs/paystack/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/paystack/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/paystack"],
+          "options": {
+            "jestConfig": "libs/paystack/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "pipes": {
       "root": "libs/pipes",
       "sourceRoot": "libs/pipes/src",
