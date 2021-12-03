@@ -15,7 +15,11 @@ export class RpcModule {
     return {
       module: RpcModule,
       imports: [
-        HttpModule.register({ timeout: 5000, maxRedirects: 3, ...(httpConfig || {}) }),
+        HttpModule.register({
+          timeout: 5000,
+          maxRedirects: 3,
+          ...(httpConfig || {}),
+        }),
       ],
       providers: [
         {
