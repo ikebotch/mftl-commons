@@ -36,6 +36,7 @@ export class ProductStripe {
       currency,
     };
   }
+
 }
 
 export class PlanPaystack {

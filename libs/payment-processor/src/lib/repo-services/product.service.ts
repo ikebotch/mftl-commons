@@ -57,4 +57,64 @@ export class ProductService {
         );
     }
   }
+
+  delete(paymentProcessor: RefType, id: string, extra?: any) {
+    switch (paymentProcessor) {
+      case RefType.PAYSTACK:
+        this.paystackService.deletePlan(id);
+        return;
+
+      case RefType.STRIPE:
+        this.stripeClient.plans.del(extra.billingCode);
+        this.stripeClient.products.del(id);
+        return;
+
+      default:
+        throw new NotFoundException(
+          'Payment Processor specified does not exist'
+        );
+    }
+  }
+
+  async deletAll(paymentProcessor: RefType) {
+    let products = [];
+    switch (paymentProcessor) {
+      case RefType.PAYSTACK: {
+        const res = await this.paystackService.listPlans();
+        products = res?.data || [];
+        for (const pdt of products) {
+          this.paystackService.deletePlan((pdt as any).id);
+        }
+
+        return;
+      }
+      case RefType.STRIPE: {
+        const stripePdts = await this.stripeClient.products.list({limit: 100});
+        const priceRes = await this.stripeClient.plans.list({limit: 100});
+        const prices = priceRes.data;
+        products = stripePdts.data;
+        for (const price of prices) {
+          this.stripeClient.plans.del(price.id);
+        }
+        for (const pdt of products) {
+          this.stripeClient.products.del(pdt.id);
+        }
+
+        return {
+          price: {
+            has_more: priceRes.has_more,
+            noDeleted: priceRes.data?.length,
+          },
+          product: {
+            has_more: stripePdts.has_more,
+            noDeleted: stripePdts.data?.length,
+          },
+        };
+      }
+      default:
+        throw new NotFoundException(
+          'Payment Processor specified does not exist'
+        );
+    }
+  }
 }

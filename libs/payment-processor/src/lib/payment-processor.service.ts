@@ -24,6 +24,14 @@ export class PaymentProcessorService {
     return await this.productRepoSrv.create(paymentProcessor, product);
   }
 
+   deleteProduct(paymentProcessor: RefType, id: string, extra: any) {
+    return  this.productRepoSrv.delete(paymentProcessor, id);
+  }
+
+  deleteAllProducts(paymentProcessor: RefType) {
+    return  this.productRepoSrv.deletAll(paymentProcessor);
+  }
+
   async createSubscription(
     paymentProcessor: RefType,
     subscription: SubscriptionModel,
