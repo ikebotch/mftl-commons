@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { CentralizedConfigService } from 'mftl-config';
+// import { CentralizedConfigService } from 'mftl-config';
+import { PaymentProcessorService, RefType } from 'mftl-payment-processor';
 
 @Injectable()
 export class AppService {
-  constructor(private configService: CentralizedConfigService) {}
+  constructor(private ppSrv: PaymentProcessorService) {}
   async getData() {
-    return await this.configService.fetchConfig(
-      'qplus-payment-properties',
-      'ghana'
-    );
+    return this.ppSrv.deleteAllProducts(RefType.STRIPE)
+    // return await this.configService.fetchConfig(
+    //   'qplus-payment-properties',
+    //   'ghana'
+    // );
   }
 }

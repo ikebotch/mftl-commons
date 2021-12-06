@@ -39,3 +39,4 @@ testem.log
 Thumbs.db
 
 mftl-dev-firebase-adminsdk-hb57g-3f5b93ec0a.json
+.env
