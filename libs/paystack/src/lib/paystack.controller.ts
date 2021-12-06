@@ -21,6 +21,6 @@ export class PaystackController {
   async handleWebhook(@Request() request: Request) {
     // console.log('hey i see u baby', request.body);
     await this.stripeWebhookService.handleWebhook(request.body);
-    return {};
+    // return {};
   }
 }

@@ -9,15 +9,48 @@ export class PaystackService {
   constructor(
     private httpService: HttpService,
     @InjectPaystackModuleConfig()
-    public config: PaystackInterface.ConfigModuleOptions,
+    public config: PaystackInterface.ConfigModuleOptions
   ) {}
 
   async createPlan(
-    data: any,
+    data: any
   ): Promise<PaystackInterface.GenericHttpResponse<PaystackInterface.Plan>> {
     try {
       return await lastValueFrom(
-        this.httpService.post('plan', data).pipe(map((x) => x.data)),
+        this.httpService.post('plan', data).pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async deletePlan(id: string): Promise<any> {
+    try {
+      return await lastValueFrom(this.httpService.delete(`plan/${id}`));
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async listPlans(): Promise<
+    PaystackInterface.GenericHttpResponse<PaystackInterface.Plan[]>
+  > {
+    try {
+      return await lastValueFrom(
+        this.httpService.get('plan').pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async updatePlan(
+    id: string,
+    data: any
+  ): Promise<PaystackInterface.GenericHttpResponse<PaystackInterface.Plan>> {
+    try {
+      return await lastValueFrom(
+        this.httpService.post(`plan/${id}`, data).pipe(map((x) => x.data))
       );
     } catch (error: any) {
       throw new Error(error.response?.data?.message || error.message);
@@ -25,13 +58,13 @@ export class PaystackService {
   }
 
   async createPaymentPage(
-    data: PaystackInterface.PaymentPageParam,
+    data: PaystackInterface.PaymentPageParam
   ): Promise<
     PaystackInterface.GenericHttpResponse<PaystackInterface.PaymentPage>
   > {
     try {
       return await lastValueFrom(
-        this.httpService.post('page', data).pipe(map((x) => x.data)),
+        this.httpService.post('page', data).pipe(map((x) => x.data))
       );
     } catch (error: any) {
       throw new Error(error.response?.data?.message || error.message);
@@ -39,13 +72,13 @@ export class PaystackService {
   }
 
   async createCustomer(
-    data: PaystackInterface.CustomerParam,
+    data: PaystackInterface.CustomerParam
   ): Promise<
     PaystackInterface.GenericHttpResponse<PaystackInterface.Customer>
   > {
     try {
       return await lastValueFrom(
-        this.httpService.post('customer', data).pipe(map((x) => x.data)),
+        this.httpService.post('customer', data).pipe(map((x) => x.data))
       );
     } catch (error: any) {
       throw new Error(error.response?.data?.message || error.message);
@@ -54,13 +87,13 @@ export class PaystackService {
 
   async updateCustomer(
     id: string,
-    data: PaystackInterface.CustomerParam,
+    data: PaystackInterface.CustomerParam
   ): Promise<
     PaystackInterface.GenericHttpResponse<PaystackInterface.Customer>
   > {
     try {
       return await lastValueFrom(
-        this.httpService.put(`customer/${id}`, data).pipe(map((x) => x.data)),
+        this.httpService.put(`customer/${id}`, data).pipe(map((x) => x.data))
       );
     } catch (error: any) {
       // console.log(error);
@@ -69,7 +102,7 @@ export class PaystackService {
   }
 
   async transactionInitialize(
-    data: PaystackInterface.TransactionInitializeParam,
+    data: PaystackInterface.TransactionInitializeParam
   ): Promise<
     PaystackInterface.GenericHttpResponse<PaystackInterface.TransactionInitialize>
   > {
@@ -77,7 +110,7 @@ export class PaystackService {
       return await lastValueFrom(
         this.httpService
           .post('transaction/initialize', data)
-          .pipe(map((x) => x.data)),
+          .pipe(map((x) => x.data))
       );
     } catch (error: any) {
       // console.log('error log me', error);
@@ -86,13 +119,13 @@ export class PaystackService {
   }
 
   async subscribe(
-    data: PaystackInterface.SubscriptionParam,
+    data: PaystackInterface.SubscriptionParam
   ): Promise<
     PaystackInterface.GenericHttpResponse<PaystackInterface.Subscription>
   > {
     try {
       return await lastValueFrom(
-        this.httpService.post('subscription', data).pipe(map((x) => x.data)),
+        this.httpService.post('subscription', data).pipe(map((x) => x.data))
       );
     } catch (error: any) {
       // console.log('error log me', error.response?.data?.message);
