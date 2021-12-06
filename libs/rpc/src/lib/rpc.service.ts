@@ -1,8 +1,8 @@
 import { HttpService } from '@nestjs/axios';
 import { AxiosRequestConfig } from '@nestjs/axios/node_modules/axios';
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { lastValueFrom, map } from 'rxjs';
-import { RPC_CONFIG } from './rpc.config';
+import { lastValueFrom, map, retry } from 'rxjs';
+import { RPC_CONFIG, RPC_HTTP_RETRY } from './rpc.config';
 import { RpcConfigModel } from './rpc.models';
 
 @Injectable()
@@ -10,7 +10,8 @@ export class RpcService {
   private readonly logger = new Logger('MFTL RPC');
   constructor(
     private httpService: HttpService,
-    @Inject(RPC_CONFIG) private rpcConfig: { [id: string]: RpcConfigModel }
+    @Inject(RPC_CONFIG) private rpcConfig: { [id: string]: RpcConfigModel },
+    @Inject(RPC_HTTP_RETRY) private rpcHttpRetry: number
   ) {}
 
   getConfigs() {
@@ -24,7 +25,8 @@ export class RpcService {
   async rpcBuilder<T>(
     rpcName: string,
     id?: string,
-    httpConfig?: AxiosRequestConfig
+    httpConfig?: AxiosRequestConfig,
+    httpRetry?: number
   ) {
     try {
       const idParam = id?.trim() ? '/' + id.trim() : '';
@@ -34,12 +36,16 @@ export class RpcService {
         return await lastValueFrom(
           this.httpService
             .post<T>(`${url}${idParam}`, httpConfig?.data, httpConfig)
-            .pipe(map((x) => x.data))
+            .pipe(
+              map((x) => x.data),
+              retry(this.rpcHttpRetry ?? httpRetry)
+            )
         );
       } else {
         return await lastValueFrom(
           this.httpService[method]<T>(`${url}${idParam}`, httpConfig).pipe(
-            map((x) => x.data)
+            map((x) => x.data),
+            retry(this.rpcHttpRetry ?? httpRetry)
           )
         );
       }
