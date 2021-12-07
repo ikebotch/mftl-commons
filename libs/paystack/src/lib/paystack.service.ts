@@ -44,6 +44,18 @@ export class PaystackService {
     }
   }
 
+  async retrievePlan(id: string): Promise<
+    PaystackInterface.GenericHttpResponse<PaystackInterface.Plan>
+  > {
+    try {
+      return await lastValueFrom(
+        this.httpService.get(`plan/${id}`).pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
   async updatePlan(
     id: string,
     data: any

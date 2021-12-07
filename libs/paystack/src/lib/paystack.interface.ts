@@ -10,8 +10,32 @@ export namespace PaystackInterface {
     status: boolean;
     message: string;
     data: T;
+    meta?: {
+      total: number;
+      skipped: number;
+      perPage: number;
+      page: number;
+      pageCount: number;
+    };
   }
 
+  // "subscriptions": [],
+  //   "integration": 100032,
+  //   "domain": "test",
+  //   "name": "Monthly retainer",
+  //   "plan_code": "PLN_gx2wn530m0i3w3m",
+  //   "description": null,
+  //   "amount": 50000,
+  //   "interval": "monthly",
+  //   "send_invoices": true,
+  //   "send_sms": true,
+  //   "hosted_page": false,
+  //   "hosted_page_url": null,
+  //   "hosted_page_summary": null,
+  //   "currency": "NGN",
+  //   "id": 28,
+  //   "createdAt": "2016-03-29T22:42:50.000Z",
+  //   "updatedAt": "2016-03-29T22:42:50.000Z"
   export interface PlanParam {
     name?: string;
     amount?: number;
@@ -34,6 +58,10 @@ export namespace PaystackInterface {
     hosted_page?: boolean;
     currency?: string;
     id?: number;
+    subscriptions?: any[];
+    description?: string;
+    hosted_page_url?: null;
+    hosted_page_summary?: null;
     createdAt?: Date;
     updatedAt?: Date;
   }
@@ -108,7 +136,7 @@ export namespace PaystackInterface {
     reusable: boolean;
     signature: string;
     account_name: string;
-}
+  }
 
   export interface Subscription {
     customer: number;
