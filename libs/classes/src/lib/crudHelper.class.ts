@@ -1,6 +1,10 @@
 import { Logger, NotFoundException } from '@nestjs/common';
-import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
-import { Repository } from 'typeorm';
+import {
+  IPaginationOptions,
+  paginate,
+  paginateRaw,
+} from 'nestjs-typeorm-paginate';
+import { QueryBuilder, Repository, SelectQueryBuilder } from 'typeorm';
 
 export class CrudHelper {
   // protected DoesNotExistException: any;
@@ -28,6 +32,13 @@ export class CrudHelper {
 
     // return found entity
     return entity;
+  }
+
+  public async search(
+    query: SelectQueryBuilder<any>,
+    pagination: IPaginationOptions
+  ) {
+    return await paginateRaw<any>(query, pagination);
   }
 
   // TODO: Define query explicitly
