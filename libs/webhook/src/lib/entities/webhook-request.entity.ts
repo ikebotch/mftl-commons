@@ -20,7 +20,7 @@ export class WebhookRequestEntity {
   registeredUrl!: string;
 
   @Column({ type: 'json', nullable: true })
-  body!: string;
+  body!: any;
 
   @CreateDateColumn({ select: true })
   createdAt!: Date;

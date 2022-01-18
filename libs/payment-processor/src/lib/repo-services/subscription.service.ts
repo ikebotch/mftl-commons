@@ -14,9 +14,9 @@ export class SubscriptionService {
   constructor(
     @Optional()
     @InjectStripeClient()
-    private readonly stripeClient: Stripe,
+    public readonly stripeClient: Stripe,
     @Optional()
-    private paystackService: PaystackService
+    public paystackService: PaystackService
   ) {}
 
   async create(paymentProcessor: RefType, subscription: SubscriptionModel) {
@@ -28,12 +28,16 @@ export class SubscriptionService {
           )
         );
 
-      case RefType.STRIPE:
-        return new SubscriptionResponse(this.stripeClient).stripe(
+      case RefType.STRIPE:{
+        // console.dir(new CheckoutSessionStripe(subscription), {depth: 8})
+        const sub = new SubscriptionResponse(this.stripeClient).stripe(
           await this.stripeClient.checkout.sessions.create(
             new CheckoutSessionStripe(subscription)
           )
-        );
+
+        )
+        return sub
+      }
 
       default:
         throw new NotFoundException(
@@ -41,4 +45,5 @@ export class SubscriptionService {
         );
     }
   }
+
 }

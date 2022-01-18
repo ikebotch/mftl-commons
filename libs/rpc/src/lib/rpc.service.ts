@@ -38,14 +38,14 @@ export class RpcService {
             .post<T>(`${url}${idParam}`, httpConfig?.data, httpConfig)
             .pipe(
               map((x) => x.data),
-              retry(this.rpcHttpRetry ?? httpRetry)
+              retry(httpRetry ?? this.rpcHttpRetry)
             )
         );
       } else {
         return await lastValueFrom(
           this.httpService[method]<T>(`${url}${idParam}`, httpConfig).pipe(
             map((x) => x.data),
-            retry(this.rpcHttpRetry ?? httpRetry)
+            retry(httpRetry ?? this.rpcHttpRetry)
           )
         );
       }

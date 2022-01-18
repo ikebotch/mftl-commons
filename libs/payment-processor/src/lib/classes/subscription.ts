@@ -17,7 +17,7 @@ export class CheckoutSessionStripe {
     this.success_url = successUrl as string;
     this.cancel_url = cancelUrl as string;
     this.customer = customer;
-    this.line_items = [{ price: billingCode }];
+    this.line_items = [{ price: billingCode, quantity: 1}];
   }
 }
 

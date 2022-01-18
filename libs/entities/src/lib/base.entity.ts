@@ -7,18 +7,17 @@ import {
 
 export class BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
-  @CreateDateColumn({ default: new Date().toISOString(), nullable: true })
-  createdAt: string;
+  @CreateDateColumn()
+  createdAt!: Date;
 
   @UpdateDateColumn({
-    default: new Date().toISOString(),
     nullable: true,
     select: false,
   })
-  updatedAt: string;
+  updatedAt!: Date;
 
   @DeleteDateColumn({ nullable: true, select: false })
-  deletedAt: string;
+  deletedAt!: Date;
 }

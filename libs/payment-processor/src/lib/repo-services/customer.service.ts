@@ -15,9 +15,9 @@ export class CustomerService {
   constructor(
     @Optional()
     @InjectStripeClient()
-    private readonly stripeClient: Stripe,
+    public readonly stripeClient: Stripe,
     @Optional()
-    private paystackService: PaystackService
+    public paystackService: PaystackService
   ) {}
 
   async create(paymentProcessor: RefType, customer: CustomerModel) {

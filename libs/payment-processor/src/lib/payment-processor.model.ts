@@ -13,6 +13,7 @@ export interface CustomerModel {
   phone: string;
   customerId: string;
   sponsorRef: string;
+  tenantId: string;
 }
 
 export interface ProductModel {
@@ -27,6 +28,8 @@ export interface ProductModel {
 }
 
 export interface SubscriptionModel {
+  productId: string,
+  customerId: string
   billingCode: string;
   productRefId?: string;
   customer: string;
@@ -35,6 +38,7 @@ export interface SubscriptionModel {
   paymentMethods?: string;
   mode?: string;
   amount: number;
+  metaData?: any;
 }
 
 

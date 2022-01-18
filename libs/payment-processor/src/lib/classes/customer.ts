@@ -12,13 +12,14 @@ export class CustomerStripe {
   email: string;
   metadata: CustomerMetaDataModel | any;
   constructor(customer: CustomerModel) {
-    const { firstname, lastname, phone, email, customerId, sponsorRef } =
+    const { firstname, lastname, phone, email, customerId, sponsorRef, tenantId } =
       customer;
     (this.name = `${firstname} ${lastname}`), (this.phone = phone);
     this.email = email;
     this.metadata = {
       customerId,
       sponsorRef,
+      tenantId
     };
   }
 }
