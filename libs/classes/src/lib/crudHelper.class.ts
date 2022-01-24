@@ -38,7 +38,7 @@ export class CrudHelper {
     query: SelectQueryBuilder<any>,
     pagination: IPaginationOptions
   ) {
-    return await paginateRaw<any>(query, pagination);
+    return await paginate<any>(query, pagination);
   }
 
   // TODO: Define query explicitly
