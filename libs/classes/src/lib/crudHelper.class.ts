@@ -4,7 +4,7 @@ import {
   paginate,
   paginateRaw,
 } from 'nestjs-typeorm-paginate';
-import { QueryBuilder, Repository, SelectQueryBuilder } from 'typeorm';
+import { Repository, SelectQueryBuilder } from 'typeorm';
 
 export class CrudHelper {
   // protected DoesNotExistException: any;
