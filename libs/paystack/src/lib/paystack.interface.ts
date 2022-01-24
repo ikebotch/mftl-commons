@@ -138,18 +138,45 @@ export namespace PaystackInterface {
     account_name: string;
   }
 
+  // {
+  //   "invoices": [],
+  //   "customer": {},
+  //   "plan": {}
+  //   "integration": 100032,
+  //   "authorization": {},
+  //   "domain": "test",
+  //   "start": 1459296064,
+  //   "status": "active",
+  //   "quantity": 1,
+  //   "amount": 50000,
+  //   "subscription_code": "SUB_vsyqdmlzble3uii",
+  //   "email_token": "d7gofp6yppn3qz7",
+  //   "easy_cron_id": null,
+  //   "cron_expression": "0 0 28 * *",
+  //   "next_payment_date": "2016-04-28T07:00:00.000Z",
+  //   "open_invoice": null,
+  //   "id": 9,
+  //   "createdAt": "2016-03-30T00:01:04.000Z",
+  //   "updatedAt": "2016-03-30T00:22:58.000Z"
+  // }
+
   export interface Subscription {
-    customer: number;
-    plan: number;
+    invoices: any[];
+    customer: Customer;
+    plan: Plan;
     integration: number;
+    authorization: Authorization;
     domain: string;
     start: number;
     status: string;
     quantity: number;
     amount: number;
-    authorization: Authorization;
     subscription_code: string;
     email_token: string;
+    easy_cron_id?: string;
+    cron_expression: string;
+    next_payment_date: Date;
+    open_invoice?: any;
     id: number;
     createdAt: Date;
     updatedAt: Date;

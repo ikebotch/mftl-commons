@@ -44,9 +44,9 @@ export class PaystackService {
     }
   }
 
-  async retrievePlan(id: string): Promise<
-    PaystackInterface.GenericHttpResponse<PaystackInterface.Plan>
-  > {
+  async retrievePlan(
+    id: string
+  ): Promise<PaystackInterface.GenericHttpResponse<PaystackInterface.Plan>> {
     try {
       return await lastValueFrom(
         this.httpService.get(`plan/${id}`).pipe(map((x) => x.data))
@@ -138,6 +138,34 @@ export class PaystackService {
     try {
       return await lastValueFrom(
         this.httpService.post('subscription', data).pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      // console.log('error log me', error.response?.data?.message);
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async fetchSubscription(
+    id: string
+  ): Promise<
+    PaystackInterface.GenericHttpResponse<PaystackInterface.Subscription>
+  > {
+    try {
+      return await lastValueFrom(
+        this.httpService.get(`subscription/${id}`).pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      // console.log('error log me', error.response?.data?.message);
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async listSubscriptions(): Promise<
+    PaystackInterface.GenericHttpResponse<PaystackInterface.Subscription[]>
+  > {
+    try {
+      return await lastValueFrom(
+        this.httpService.get('subscription').pipe(map((x) => x.data))
       );
     } catch (error: any) {
       // console.log('error log me', error.response?.data?.message);

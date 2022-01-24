@@ -1,0 +1,7 @@
+{
+  "name": "mftl-auth0",
+  "version": "0.0.1",
+  "devDependencies": {
+    "@types/passport-jwt": "^3.0.6"
+  }
+}

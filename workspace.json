@@ -1,6 +1,39 @@
 {
   "version": 2,
   "projects": {
+    "auth0": {
+      "root": "libs/auth0",
+      "sourceRoot": "libs/auth0/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/auth0",
+            "tsConfig": "libs/auth0/tsconfig.lib.json",
+            "packageJson": "libs/auth0/package.json",
+            "main": "libs/auth0/src/index.ts",
+            "assets": ["libs/auth0/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/auth0/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/auth0"],
+          "options": {
+            "jestConfig": "libs/auth0/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "classes": {
       "root": "libs/classes",
       "sourceRoot": "libs/classes/src",

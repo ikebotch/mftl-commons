@@ -3,11 +3,11 @@ import { AxiosRequestConfig } from '@nestjs/axios/node_modules/axios';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
-import { lastValueFrom, map } from 'rxjs';
+import { lastValueFrom, map, retry } from 'rxjs';
 import { Repository } from 'typeorm';
 import { WebhookRequestEntity } from './entities/webhook-request.entity';
 import { WebhookEntity } from './entities/webhook.entity';
-import { WEBHOOK_EVENTS } from './webhook.config';
+import { WEBHOOK_EVENTS, WEBHOOK_HTTP_RETRY } from './webhook.config';
 import { CreateWebhookDto, UpdateWebhookDto } from './webhook.dto';
 import { WebhookEventModel } from './webhook.interface';
 
@@ -20,7 +20,8 @@ export class WebhookService {
     @InjectRepository(WebhookRequestEntity)
     private webhookRequestRepository: Repository<WebhookRequestEntity>,
     private httpService: HttpService,
-    @Inject(WEBHOOK_EVENTS) private webHookEventSrv: WebhookEventModel
+    @Inject(WEBHOOK_EVENTS) private webHookEventSrv: WebhookEventModel,
+    @Inject(WEBHOOK_HTTP_RETRY) private webhookHttpRetry: number
   ) {}
 
   // Crud functions
@@ -74,7 +75,8 @@ export class WebhookService {
     data: any,
     methodName: 'post' | 'put' = 'post',
     id?: string,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
+    httpRetry?: number
   ) {
     // get all subscriptions to this event
     this.logger.log(JSON.stringify(data), event);
@@ -85,13 +87,17 @@ export class WebhookService {
     for await (const subscription of subscriptions) {
       const webhookReq = this.webhookRequestRepository.create();
       try {
+        const idParam = id?.trim() ? '/' + id.trim() : '';
         const res = await lastValueFrom(
           this.httpService[methodName](
-            `${subscription.registeredUrl}/${id?.trim() ? id : ''}`,
+            `${subscription.registeredUrl}${idParam}`,
             data,
             config
           ).pipe(map((x) => x.data))
+          // .pipe(map((x) => x.data), retry(httpRetry ?? this.webhookHttpRetry))
         );
+
+        this.logger.log('SUCCESS RES: =>' + JSON.stringify(res?.data || {}))
 
         Object.assign(webhookReq, {
           registeredUrl: subscription.registeredUrl,
@@ -99,6 +105,7 @@ export class WebhookService {
           event: event,
         });
       } catch (error: any) {
+        this.logger.log('ERROR RES: =>' + error?.message)
         this.logger.error(error, error?.stack || error?.message, event);
         Object.assign(webhookReq, {
           registeredUrl: subscription.registeredUrl,
@@ -106,6 +113,7 @@ export class WebhookService {
           event,
         });
       } finally {
+        this.logger.log('FINALIZE ENTRY: =>' + webhookReq.registeredUrl)
         await this.webhookRequestRepository.save(webhookReq);
       }
     }

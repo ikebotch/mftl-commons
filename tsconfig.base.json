@@ -23,6 +23,7 @@
       "@mftl/common-strategies": ["libs/strategies/src/index.ts"],
       "@mftl/nest-common": ["libs/nest-common/src/index.ts"],
       "@mftl/nest-common/*": ["libs/nest-common/*"],
+      "mftl-auth0": ["libs/auth0/src/index.ts"],
       "mftl-common-classes": ["libs/classes/src/index.ts"],
       "mftl-common-decorators": ["libs/decorators/src/index.ts"],
       "mftl-common-entities": ["libs/entities/src/index.ts"],

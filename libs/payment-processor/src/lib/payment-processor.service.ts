@@ -12,9 +12,9 @@ import { SubscriptionService } from './repo-services/subscription.service';
 @Injectable()
 export class PaymentProcessorService {
   constructor(
-    private productRepoSrv: ProductService,
-    private customerSrv: CustomerService,
-    private subscriptionSrv: SubscriptionService,
+    public productRepoSrv: ProductService,
+    public customerSrv: CustomerService,
+    public subscriptionSrv: SubscriptionService,
   ) {}
 
   async createCustomer(paymentProcessor: RefType, customer: CustomerModel) {
@@ -25,7 +25,7 @@ export class PaymentProcessorService {
   }
 
    deleteProduct(paymentProcessor: RefType, id: string, extra: any) {
-    return  this.productRepoSrv.delete(paymentProcessor, id);
+    return  this.productRepoSrv.delete(paymentProcessor, id, extra);
   }
 
   deleteAllProducts(paymentProcessor: RefType) {
