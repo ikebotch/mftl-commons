@@ -20,6 +20,10 @@ export class PaymentProcessorService {
   async createCustomer(paymentProcessor: RefType, customer: CustomerModel) {
     return await this.customerSrv.create(paymentProcessor, customer);
   }
+
+  async updateCustomer(paymentProcessor: RefType, id: string, customer: CustomerModel) {
+    return await this.customerSrv.update(paymentProcessor, id, customer);
+  }
   async createProduct(paymentProcessor: RefType, product: ProductModel) {
     return await this.productRepoSrv.create(paymentProcessor, product);
   }
