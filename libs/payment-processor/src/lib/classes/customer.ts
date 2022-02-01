@@ -12,14 +12,21 @@ export class CustomerStripe {
   email: string;
   metadata: CustomerMetaDataModel | any;
   constructor(customer: CustomerModel) {
-    const { firstname, lastname, phone, email, customerId, sponsorRef, tenantId } =
-      customer;
+    const {
+      firstname,
+      lastname,
+      phone,
+      email,
+      customerId,
+      sponsorRef,
+      tenantId,
+    } = customer;
     (this.name = `${firstname} ${lastname}`), (this.phone = phone);
     this.email = email;
     this.metadata = {
       customerId,
       sponsorRef,
-      tenantId
+      tenantId,
     };
   }
 }
@@ -31,8 +38,15 @@ export class CustomerPaystack {
   email: string;
   metadata: CustomerMetaDataModel;
   constructor(customer: CustomerModel) {
-    const { firstname, lastname, phone, email, customerId, sponsorRef } =
-      customer;
+    const {
+      firstname,
+      lastname,
+      phone,
+      email,
+      customerId,
+      sponsorRef,
+      tenantId,
+    } = customer;
     this.first_name = firstname;
     this.last_name = lastname;
     this.phone = phone;
@@ -40,6 +54,7 @@ export class CustomerPaystack {
     this.metadata = {
       customerId,
       sponsorRef,
+      tenantId,
     };
   }
 }
@@ -56,7 +71,7 @@ export class CustomerResponse<T> {
   constructor(paymentProcessorSrv: T) {
     if (!paymentProcessorSrv) {
       throw new BadRequestException(
-        'The Payment processor specified has not been configured yet',
+        'The Payment processor specified has not been configured yet'
       );
     }
   }
@@ -71,15 +86,16 @@ export class CustomerResponse<T> {
     this.customerRefId = id;
     this.metadata = metadata as any;
 
-    return this
+    return this;
   }
 
   paystack(
     res: PaystackInterface.GenericHttpResponse<PaystackInterface.Customer>,
-    customer: CustomerModel,
+    customer: CustomerModel
   ) {
     const { customer_code, email } = res.data;
-    const { firstname, lastname, phone, customerId, sponsorRef } = customer;
+    const { firstname, lastname, phone, customerId, sponsorRef, tenantId } =
+      customer;
     this.customerRefId = customer_code;
     this.firstname = firstname;
     this.lastname = lastname;
@@ -88,8 +104,9 @@ export class CustomerResponse<T> {
     this.metadata = {
       customerId,
       sponsorRef,
+      tenantId,
     };
 
-    return this
+    return this;
   }
 }
