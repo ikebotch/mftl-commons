@@ -66,7 +66,7 @@ export class PlanPaystack {
     this.description = description;
     this.send_invoices = send_invoices ?? false;
     this.send_sms = send_sms ?? false;
-    this.currency = currency as string;
+    this.currency = (currency as string).toUpperCase();
     this.invoice_limit = invoice_limit;
   }
 }

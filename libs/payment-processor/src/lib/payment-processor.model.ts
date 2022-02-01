@@ -24,28 +24,30 @@ export interface ProductModel {
   primaryImage?: string;
   secondaryImages?: string[];
   interval: string;
-  extra?: any
+  extra?: any;
 }
 
 export interface SubscriptionModel {
-  productId: string,
-  customerId: string
+  productId: string;
+  customerId: string;
   billingCode: string;
   productRefId?: string;
   customer: string;
   successUrl?: string;
-  cancelUrl?:string;
+  cancelUrl?: string;
   paymentMethods?: string;
   mode?: string;
   amount: number;
   metaData?: any;
+  authorization?: string;
+  start_date?: Date;
 }
-
 
 
 export interface CustomerMetaDataModel {
   customerId: string;
   sponsorRef: string;
+  tenantId: string;
 }
 
 export enum IntervalEnum {

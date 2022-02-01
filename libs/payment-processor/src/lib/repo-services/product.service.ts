@@ -89,8 +89,10 @@ export class ProductService {
         return;
       }
       case RefType.STRIPE: {
-        const stripePdts = await this.stripeClient.products.list({limit: 100});
-        const priceRes = await this.stripeClient.plans.list({limit: 100});
+        const stripePdts = await this.stripeClient.products.list({
+          limit: 100,
+        });
+        const priceRes = await this.stripeClient.plans.list({ limit: 100 });
         const prices = priceRes.data;
         products = stripePdts.data;
         for (const price of prices) {

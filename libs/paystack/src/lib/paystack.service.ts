@@ -172,4 +172,20 @@ export class PaystackService {
       throw new Error(error.response?.data?.message || error.message);
     }
   }
+
+  async disableSubscription(
+    code: string,
+    token: string
+  ): Promise<PaystackInterface.GenericHttpResponse<unknown>> {
+    try {
+      return await lastValueFrom(
+        this.httpService
+          .post(`subscription/disable`, { code, token })
+          .pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      // console.log('error log me', error.response?.data?.message);
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
 }
