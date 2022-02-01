@@ -1,9 +1,5 @@
 import { Logger, NotFoundException } from '@nestjs/common';
-import {
-  IPaginationOptions,
-  paginate,
-  paginateRaw,
-} from 'nestjs-typeorm-paginate';
+import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
 import { Repository, SelectQueryBuilder } from 'typeorm';
 
 export class CrudHelper {
@@ -87,9 +83,9 @@ export class CrudHelper {
     return newEntityToBeinserted;
   }
 
-  public async update(id: string, body: any) {
+  public async update(id: string, body: any, partition?: any) {
     // get entity by id
-    const entity = await this.repository.findOne(id);
+    const entity = await this.repository.findOne({ id, ...partition });
 
     if (!entity) {
       // throw an error if entity was not found
@@ -155,9 +151,9 @@ export class CrudHelper {
     return { updatedEntity: entity, initialEntity };
   }
 
-  public async delete(id: string) {
+  public async delete(id: string, partition?: any) {
     // check if entity exists
-    const entity = await this.findOne(id);
+    const entity = await this.findOne({ id, ...partition });
 
     if (!entity) {
       throw new NotFoundException(`${this.name} does not exist`);
