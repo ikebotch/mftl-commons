@@ -39,4 +39,28 @@ export class CustomerService {
         throw new NotFoundException('No payment Processor specified');
     }
   }
+
+  async update(paymentProcessor: RefType, id: string, customer: CustomerModel) {
+    switch (paymentProcessor) {
+      case RefType.PAYSTACK:
+        return new CustomerResponse(this.paystackService).paystack(
+          await this.paystackService.updateCustomer(
+            id,
+            new CustomerPaystack(customer)
+          ),
+          customer
+        );
+
+      case RefType.STRIPE:
+        return new CustomerResponse(this.stripeClient).stripe(
+          await this.stripeClient.customers.update(
+            id,
+            new CustomerStripe(customer)
+          )
+        );
+
+      default:
+        throw new NotFoundException('No payment Processor specified');
+    }
+  }
 }
