@@ -153,7 +153,7 @@ export class CrudHelper {
 
   public async delete(id: string, partition?: any) {
     // check if entity exists
-    const entity = await this.findOne({ id, ...partition });
+    const entity = await this.findOne(id, { ...partition });
 
     if (!entity) {
       throw new NotFoundException(`${this.name} does not exist`);
