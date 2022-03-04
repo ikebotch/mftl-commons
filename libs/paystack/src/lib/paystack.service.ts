@@ -83,6 +83,32 @@ export class PaystackService {
     }
   }
 
+  async listCustomers(): Promise<
+    PaystackInterface.GenericHttpResponse<PaystackInterface.Customer[]>
+  > {
+    try {
+      return await lastValueFrom(
+        this.httpService.get('customer').pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async retrieveCustomer(
+    id: string
+  ): Promise<
+    PaystackInterface.GenericHttpResponse<PaystackInterface.Customer>
+  > {
+    try {
+      return await lastValueFrom(
+        this.httpService.get(`customer/${id}`).pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
   async createCustomer(
     data: PaystackInterface.CustomerParam
   ): Promise<

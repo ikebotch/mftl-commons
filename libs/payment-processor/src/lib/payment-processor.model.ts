@@ -66,6 +66,7 @@ export enum RefType {
 
 export const STRIPE_PAYMENT_INTERVAL = {
   [IntervalEnum.DAILY as string]: 'day',
+  [IntervalEnum.ANNUALLY as string]: 'year',
   [IntervalEnum.WEEKLY as string]: 'week',
   [IntervalEnum.MONTHLY as string]: 'month',
   [IntervalEnum.CUSTOM as string]: 'custom',
