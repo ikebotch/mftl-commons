@@ -382,6 +382,72 @@
         }
       }
     },
+    "mailchimp": {
+      "root": "libs/mailchimp",
+      "sourceRoot": "libs/mailchimp/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/mailchimp",
+            "tsConfig": "libs/mailchimp/tsconfig.lib.json",
+            "packageJson": "libs/mailchimp/package.json",
+            "main": "libs/mailchimp/src/index.ts",
+            "assets": ["libs/mailchimp/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/mailchimp/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/mailchimp"],
+          "options": {
+            "jestConfig": "libs/mailchimp/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "mailchip": {
+      "root": "libs/mailchip",
+      "sourceRoot": "libs/mailchip/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/mailchip",
+            "tsConfig": "libs/mailchip/tsconfig.lib.json",
+            "packageJson": "libs/mailchip/package.json",
+            "main": "libs/mailchip/src/index.ts",
+            "assets": ["libs/mailchip/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/mailchip/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/mailchip"],
+          "options": {
+            "jestConfig": "libs/mailchip/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "nest-common": {
       "root": "libs/nest-common",
       "sourceRoot": "libs/nest-common/src",

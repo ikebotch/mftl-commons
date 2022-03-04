@@ -43,6 +43,38 @@ export interface SubscriptionModel {
   start_date?: Date;
 }
 
+export interface SubscriptionChangeModel {
+  billingCode: string;
+  start_date?: Date;
+  authorization?: string;
+  customer: string;
+}
+
+export interface PaymentPageModel {
+  name: string;
+  billingCode: string;
+  customerId: string;
+  customerRefId: string;
+  productRefId: string;
+  amount: number;
+  description: string;
+  currency: string;
+  subscriptionCode: string;
+  cancelUrl: string;
+  successUrl: string;
+  leaseId: number;
+  refundId: string;
+  refundAmount: number;
+  refundReason?: string;
+  transactionId: string;
+  invoiceId: string;
+}
+
+export interface RefundModel {
+  id: string;
+  amount: number;
+  reason?: string;
+}
 
 export interface CustomerMetaDataModel {
   customerId: string;

@@ -1,7 +1,7 @@
 import { BadRequestException } from '@nestjs/common';
 import { PaystackInterface } from 'mftl-paystack';
 import Stripe from 'stripe';
-import { SubscriptionModel } from '../payment-processor.model';
+import { SubscriptionChangeModel, SubscriptionModel } from '../payment-processor.model';
 import { convertAmountToFintech } from '../payment-processor.utils';
 
 export class CheckoutSessionStripe {
@@ -55,15 +55,13 @@ export class CustomSubscriptionPaystack {
 
 export class SubscriptionChange {
   billingCode: string;
-  productId: string;
   start_date?: Date;
   authorization?: string;
   customer: string;
 
-  constructor(sub: SubscriptionModel) {
-    const { billingCode, productId, start_date, authorization, customer } = sub;
+  constructor(sub: SubscriptionChangeModel) {
+    const { billingCode, start_date, authorization, customer } = sub;
     this.billingCode = billingCode;
-    this.productId = productId;
     this.customer = customer;
     if (start_date) {
       this.start_date = start_date;

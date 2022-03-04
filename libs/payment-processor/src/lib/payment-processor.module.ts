@@ -6,6 +6,8 @@ import { PaystackModule } from 'mftl-paystack';
 import { CustomerService } from './repo-services/customer.service';
 import { ProductService } from './repo-services/product.service';
 import { SubscriptionService } from './repo-services/subscription.service';
+import { PaymentService } from './repo-services/payment.service';
+import { RefundService } from './repo-services/refund.service';
 
 @Global()
 @Module({})
@@ -23,19 +25,29 @@ export class PaymentProcessorModule {
       imports.push(
         StripeModule.forRoot(StripeModule, {
           ...stripeConfig,
-        }),
+        })
       );
       exports.push(StripeModule);
     }
     return {
       module: PaymentProcessorModule,
       imports,
-      exports: [...exports, PaymentProcessorService],
+      exports: [
+        ...exports,
+        PaymentProcessorService,
+        ProductService,
+        CustomerService,
+        SubscriptionService,
+        PaymentService,
+        RefundService,
+      ],
       providers: [
         ProductService,
         CustomerService,
         SubscriptionService,
         PaymentProcessorService,
+        PaymentService,
+        RefundService,
       ],
     };
   }

@@ -71,4 +71,8 @@ export class PaymentProcessorService {
       subscription
     );
   }
+
+  async disableSubscription(paymentProcessor: RefType, id: string) {
+    return await this.subscriptionSrv.disable(paymentProcessor, id);
+  }
 }

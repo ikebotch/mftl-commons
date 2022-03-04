@@ -1,6 +1,6 @@
 {
   "name": "mftl-paystack",
-  "version": "0.0.10",
+  "version": "0.0.12",
   "devDependencies": {
     "@types/lodash": "^4.14.177"
   }

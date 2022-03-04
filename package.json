@@ -13,6 +13,8 @@
     "@golevelup/nestjs-discovery": "^2.3.1",
     "@golevelup/nestjs-stripe": "^0.2.2",
     "@google-cloud/firestore": "^4.15.1",
+    "@mailchimp/mailchimp_transactional": "^1.0.47",
+    "@mindik/mailchimp-nestjs": "^1.1.4",
     "@nestjs/axios": "0.0.2",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^1.0.1",

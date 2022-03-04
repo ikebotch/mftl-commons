@@ -9,7 +9,11 @@ import {
   SubscriptionPaystack,
   SubscriptionResponse,
 } from '../classes/subscription';
-import { RefType, SubscriptionModel } from '../payment-processor.model';
+import {
+  RefType,
+  SubscriptionChangeModel,
+  SubscriptionModel,
+} from '../payment-processor.model';
 
 @Injectable()
 export class SubscriptionService {
@@ -79,7 +83,7 @@ export class SubscriptionService {
   async change(
     paymentProcessor: RefType,
     id: string,
-    subscription: SubscriptionModel
+    subscription: SubscriptionChangeModel
   ) {
     switch (paymentProcessor) {
       case RefType.PAYSTACK: {
@@ -92,8 +96,8 @@ export class SubscriptionService {
 
         return await this.paystackService.subscribe(
           new SubscriptionChange({
-            ...subscription,
             authorization,
+            ...subscription,
           }).paystack()
         );
       }
@@ -102,8 +106,8 @@ export class SubscriptionService {
         const sub = await this.stripeClient.subscriptions.del(id);
         return await this.stripeClient.subscriptions.create(
           new SubscriptionChange({
-            ...subscription,
             authorization: sub.default_payment_method as string,
+            ...subscription,
           }).stripe() as any
         );
       }
@@ -115,16 +119,24 @@ export class SubscriptionService {
     }
   }
 
-  //   const subscription = await stripe.subscriptions.retrieve('sub_49ty4767H20z6a');
-  // stripe.subscriptions.update('sub_49ty4767H20z6a', {
-  //   cancel_at_period_end: false,
-  //   proration_behavior: 'create_prorations',
-  //   items: [{
-  //     id: subscription.items.data[0].id,
-  //     price: 'price_CBb6IXqvTLXp3f',
-  //   }]
-  // });
-  // async changeSubscription() {
+  async disable(paymentProcessor: RefType, id: string) {
+    switch (paymentProcessor) {
+      case RefType.PAYSTACK: {
+        const sub = await this.paystackService.fetchSubscription(id);
+        return await this.paystackService.disableSubscription(
+          sub.data.subscription_code,
+          sub.data.email_token
+        );
+      }
 
-  // }
+      case RefType.STRIPE: {
+        return await this.stripeClient.subscriptions.del(id);
+      }
+
+      default:
+        throw new NotFoundException(
+          'Payment Processor specified does not exist to disable subscription'
+        );
+    }
+  }
 }

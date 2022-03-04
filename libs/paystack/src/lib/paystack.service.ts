@@ -214,4 +214,77 @@ export class PaystackService {
       throw new Error(error.response?.data?.message || error.message);
     }
   }
+
+  async listTransactions(
+    queryParam: PaystackInterface.TransactionQueryParam
+  ): Promise<
+    PaystackInterface.GenericHttpResponse<PaystackInterface.Transaction[]>
+  > {
+    try {
+      return await lastValueFrom(
+        this.httpService
+          .get('transaction', { params: queryParam })
+          .pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      // console.log('error log me', error.response?.data?.message);
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async fetchTransaction(
+    id: string
+  ): Promise<
+    PaystackInterface.GenericHttpResponse<PaystackInterface.Transaction>
+  > {
+    try {
+      return await lastValueFrom(
+        this.httpService.get(`transaction/${id}`).pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      // console.log('error log me', error.response?.data?.message);
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async refund(
+    data: PaystackInterface.RefundParam
+  ): Promise<PaystackInterface.GenericHttpResponse<PaystackInterface.Refund>> {
+    try {
+      return await lastValueFrom(
+        this.httpService.post('refund', data).pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      // console.log('error log me', error.response?.data?.message);
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async fetchRefund(
+    reference: string
+  ): Promise<PaystackInterface.GenericHttpResponse<PaystackInterface.Refund>> {
+    try {
+      return await lastValueFrom(
+        this.httpService.get('refund/' + reference).pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      // console.log('error log me', error.response?.data?.message);
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async listRefunds(
+    queryParam: PaystackInterface.RefundQueryParam
+  ): Promise<PaystackInterface.GenericHttpResponse<PaystackInterface.Refund>> {
+    try {
+      return await lastValueFrom(
+        this.httpService
+          .get('refund', { params: queryParam })
+          .pipe(map((x) => x.data))
+      );
+    } catch (error: any) {
+      // console.log('error log me', error.response?.data?.message);
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
 }

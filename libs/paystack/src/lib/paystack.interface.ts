@@ -182,6 +182,41 @@ export namespace PaystackInterface {
     updatedAt: Date;
   }
 
+  export interface Transaction {
+    id: number;
+    domain: string;
+    status: string;
+    reference: string;
+    amount: number;
+    message?: any;
+    gateway_response: string;
+    paid_at?: any;
+    created_at: Date;
+    channel: string;
+    currency: string;
+    ip_address?: any;
+    metadata: any;
+    timeline?: any;
+    customer: Customer;
+    authorization: Authorization;
+    plan: Plan;
+    requested_amount: number;
+    log?: any;
+    fees?: any;
+    paidAt?: Date;
+    createdAt?: Date;
+  }
+
+  export interface TransactionQueryParam {
+    perPage?: number;
+    page?: number;
+    customer?: string | number;
+    status?: string;
+    from?: Date;
+    to?: Date;
+    amount?: number;
+  }
+
   export interface CustomerParam {
     email?: string;
     first_name?: string;
@@ -200,6 +235,42 @@ export namespace PaystackInterface {
     identifications?: null;
     createdAt?: Date;
     updatedAt?: Date;
+  }
+
+  export interface RefundParam {
+    transaction: string;
+    amount?: number;
+    currency?: string;
+    customer_note?: string;
+    merchant_note?: string;
+  }
+
+  export interface Refund {
+    transaction: Transaction;
+    integration: number;
+    deducted_amount: number;
+    channel?: any;
+    merchant_note: string;
+    customer_note: string;
+    status: string;
+    refunded_by: string;
+    expected_at: Date;
+    currency: string;
+    domain: string;
+    amount: number;
+    fully_deducted: boolean;
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
+  }
+
+  export interface RefundQueryParam {
+    reference?: string;
+    currency?: string;
+    from?: Date;
+    to?: Date;
+    perPage?: number;
+    page?: number;
   }
 
   export type WebHookEvent =
