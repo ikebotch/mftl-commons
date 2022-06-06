@@ -106,7 +106,7 @@ export class SubscriptionService {
         const sub = await this.stripeClient.subscriptions.del(id);
         return await this.stripeClient.subscriptions.create(
           new SubscriptionChange({
-            authorization: sub.default_payment_method as string,
+            authorization: sub?.default_payment_method as string,
             ...subscription,
           }).stripe() as any
         );
