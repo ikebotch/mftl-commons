@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { lastValueFrom, map } from 'rxjs';
 import { InjectPaystackModuleConfig } from './decorators/paystack-event.decorator';
 import { PaystackInterface } from './paystack.interface';
@@ -182,6 +182,7 @@ export class PaystackService {
       );
     } catch (error: any) {
       // console.log('error log me', error.response?.data?.message);
+      // throw new HttpException(error.response?.data?.message || error.message, HttpStatus.FORBIDDEN);
       throw new Error(error.response?.data?.message || error.message);
     }
   }
