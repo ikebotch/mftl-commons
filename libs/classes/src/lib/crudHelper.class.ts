@@ -107,7 +107,7 @@ export class CrudHelper {
 
   public async getUpdateEntityData(id: string, body: any) {
     // get entity by id
-    const entity = await this.repository.findOne(id);
+    const entity = await this.repository.findOne({ where: { id } });
 
     if (!entity) {
       // throw an error if entity was not found
@@ -130,7 +130,7 @@ export class CrudHelper {
   public async getUpdateEntityWithInitialData(id: string, body: any) {
     // get entity by id
     // const originalData = {...body}
-    const entity = await this.repository.findOne(id);
+    const entity = await this.repository.findOne({ where: { id } });
     const initialEntity = { ...entity };
 
     if (!entity) {
