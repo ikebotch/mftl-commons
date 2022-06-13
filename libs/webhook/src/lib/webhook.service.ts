@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
-import { AxiosRequestConfig } from '@nestjs/axios/node_modules/axios';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AxiosRequestConfig } from 'axios';
 import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
 import { lastValueFrom, map, retry } from 'rxjs';
 import { Repository } from 'typeorm';
@@ -44,7 +44,7 @@ export class WebhookService {
   }
 
   async findById(id: string) {
-    return await this.webhookRepository.findOne(id);
+    return await this.webhookRepository.findOne({ where: { id } });
   }
 
   async find(pagination: IPaginationOptions, query?: any) {
@@ -97,7 +97,7 @@ export class WebhookService {
           // .pipe(map((x) => x.data), retry(httpRetry ?? this.webhookHttpRetry))
         );
 
-        this.logger.log('SUCCESS RES: =>' + JSON.stringify(res?.data || {}))
+        this.logger.log('SUCCESS RES: =>' + JSON.stringify(res?.data || {}));
 
         Object.assign(webhookReq, {
           registeredUrl: subscription.registeredUrl,
@@ -105,7 +105,7 @@ export class WebhookService {
           event: event,
         });
       } catch (error: any) {
-        this.logger.log('ERROR RES: =>' + error?.message)
+        this.logger.log('ERROR RES: =>' + error?.message);
         this.logger.error(error, error?.stack || error?.message, event);
         Object.assign(webhookReq, {
           registeredUrl: subscription.registeredUrl,
@@ -113,7 +113,7 @@ export class WebhookService {
           event,
         });
       } finally {
-        this.logger.log('FINALIZE ENTRY: =>' + webhookReq.registeredUrl)
+        this.logger.log('FINALIZE ENTRY: =>' + webhookReq.registeredUrl);
         await this.webhookRequestRepository.save(webhookReq);
       }
     }
