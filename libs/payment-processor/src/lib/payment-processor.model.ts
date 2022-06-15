@@ -17,6 +17,7 @@ export interface CustomerModel {
 }
 
 export interface ProductModel {
+  id?: string;
   name: string;
   currency: string;
   amount: number;

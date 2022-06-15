@@ -14,6 +14,7 @@ import {
   ProductStripe,
 } from '../classes/product';
 import { RefType, ProductModel } from '../payment-processor.model';
+import { convertAmountToFintech } from '../payment-processor.utils';
 
 @Injectable()
 export class ProductService {
@@ -113,6 +114,44 @@ export class ProductService {
           },
         };
       }
+      default:
+        throw new NotFoundException(
+          'Payment Processor specified does not exist'
+        );
+    }
+  }
+
+  async updatePrice(
+    paymentProcessor: RefType,
+    id: string,
+    product: ProductModel
+  ) {
+    switch (paymentProcessor) {
+      case RefType.PAYSTACK: {
+        await this.paystackService.updatePlan(id, {
+          amount: convertAmountToFintech(product.amount),
+        });
+        return;
+      }
+
+      case RefType.STRIPE: {
+        if (!product?.id)
+          throw new BadRequestException(
+            'Product id is required to change price'
+          );
+
+        const pdt = new ProductStripe({} as ProductModel);
+
+        const priceRes = await this.stripeClient.prices.create(
+          pdt.price(product.id, product)
+        );
+        await this.stripeClient.products.update(product.id, {
+          default_price: priceRes.id,
+        });
+        await this.stripeClient.prices.update(id, { active: false });
+        return priceRes.id;
+      }
+
       default:
         throw new NotFoundException(
           'Payment Processor specified does not exist'
