@@ -2,14 +2,14 @@ import { Logger, NotFoundException } from '@nestjs/common';
 import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
 import { Repository, SelectQueryBuilder } from 'typeorm';
 
-export class CrudHelper {
+export class CrudHelper<T = any> {
   // protected DoesNotExistException: any;
   // protected name: string;
 
   constructor(
     protected name: string,
     protected DoesNotExistException: any,
-    public repository: Repository<any>
+    public repository: Repository<T>
   ) {
     // this.name = name;
     // this.DoesNotExistException = doesNotExistException;
