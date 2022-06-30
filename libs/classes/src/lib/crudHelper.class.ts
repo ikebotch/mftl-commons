@@ -54,7 +54,7 @@ export class CrudHelper<T = any> {
 
   public async create(dto: any, partition?: any) {
     // create new entity object
-    const newEntityToBeinserted = this.repository.create();
+    const newEntityToBeinserted: any = this.repository.create();
 
     // assign dto values to model
     for (const key of Object.keys(dto)) {
@@ -72,7 +72,7 @@ export class CrudHelper<T = any> {
 
   public async getCreateEntityData(dto: any) {
     // create new entity object
-    const newEntityToBeinserted = this.repository.create();
+    const newEntityToBeinserted: any = this.repository.create();
 
     // assign dto values to model
     for (const key of Object.keys(dto)) {
@@ -85,7 +85,7 @@ export class CrudHelper<T = any> {
 
   public async update(id: string, body: any, partition?: any) {
     // get entity by id
-    const entity = await this.repository.findOne({ id, ...partition });
+    const entity: any = await this.repository.findOne({ id, ...partition });
 
     if (!entity) {
       // throw an error if entity was not found
@@ -107,7 +107,7 @@ export class CrudHelper<T = any> {
 
   public async getUpdateEntityData(id: string, body: any) {
     // get entity by id
-    const entity = await this.repository.findOne({ where: { id } });
+    const entity: any = await this.repository.findOne({ where: { id } });
 
     if (!entity) {
       // throw an error if entity was not found
@@ -130,7 +130,7 @@ export class CrudHelper<T = any> {
   public async getUpdateEntityWithInitialData(id: string, body: any) {
     // get entity by id
     // const originalData = {...body}
-    const entity = await this.repository.findOne({ where: { id } });
+    const entity: any = await this.repository.findOne({ where: { id } });
     const initialEntity = { ...entity };
 
     if (!entity) {
